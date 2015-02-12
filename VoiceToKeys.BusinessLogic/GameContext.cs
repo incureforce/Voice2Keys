@@ -91,7 +91,7 @@ namespace VoiceToKeys.BusinessLogic {
                     }
                 }
             } while (SpeechRecognitionEngine != null);
-        }4
+        }
 
         private GameCommand CommandBy(string commandFull) {
             return GameCommands.SingleOrDefault(p => p.Full == commandFull);

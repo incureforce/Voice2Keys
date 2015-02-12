@@ -9,6 +9,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VoiceToKeys.Development", "
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VoiceToKeys.BusinessLogic", "VoiceToKeys.BusinessLogic\VoiceToKeys.BusinessLogic.csproj", "{CBEA79E6-AD77-422B-BE87-7CC8877F72E0}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Utils Library", "..\Utils Library\Utils Library.csproj", "{35E284FC-D8B1-44F6-A229-8E7D811627B7}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -27,6 +29,10 @@ Global
 		{CBEA79E6-AD77-422B-BE87-7CC8877F72E0}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{CBEA79E6-AD77-422B-BE87-7CC8877F72E0}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{CBEA79E6-AD77-422B-BE87-7CC8877F72E0}.Release|Any CPU.Build.0 = Release|Any CPU
+		{35E284FC-D8B1-44F6-A229-8E7D811627B7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{35E284FC-D8B1-44F6-A229-8E7D811627B7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{35E284FC-D8B1-44F6-A229-8E7D811627B7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{35E284FC-D8B1-44F6-A229-8E7D811627B7}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

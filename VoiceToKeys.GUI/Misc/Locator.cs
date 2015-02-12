@@ -1,22 +1,17 @@
-﻿using GalaSoft.MvvmLight.Ioc;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using Utils;
 using VoiceToKeys.VMs;
 
 namespace VoiceToKeys.Misc {
     class Locator {
-        IOC ioc;
+        FactoryManager factoryManager;
 
         public Locator() {
-            ioc = App.IOC;
+            factoryManager = UIModelBase.FactoryManager;
         }
 
         public MainVM MainVM {
             get {
-                return ioc.Get<MainVM>();
+                return factoryManager.Get<MainVM>();
             }
         }
     }

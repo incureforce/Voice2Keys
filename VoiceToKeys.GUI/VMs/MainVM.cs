@@ -1,15 +1,9 @@
-﻿using GalaSoft.MvvmLight;
-using System;
-using System.Collections.Generic;
+﻿using System;
 using System.Collections.ObjectModel;
-using System.Diagnostics;
 using System.IO;
-using System.Linq;
 using System.Text;
-using System.Text.RegularExpressions;
-using System.Threading.Tasks;
 using System.Windows.Data;
-using System.Windows.Input;
+using Utils;
 using VoiceToKeys.Misc;
 
 namespace VoiceToKeys.VMs {
@@ -30,9 +24,9 @@ namespace VoiceToKeys.VMs {
         }
     }
 
-    class MainVM : ViewModelBase {
-        class CustomTextWriterParams : EventArgs{
-            public CustomTextWriterParams(string message){
+    class MainVM : UIModelBase, IDisposable {
+        class CustomTextWriterParams : EventArgs {
+            public CustomTextWriterParams(string message) {
                 Message = message;
             }
 
@@ -63,10 +57,8 @@ namespace VoiceToKeys.VMs {
         }
 
         static CustomTextWriter customTextWriter;
-        static IOC ioc;
 
         static MainVM() {
-            ioc = App.IOC;
             customTextWriter = new CustomTextWriter();
         }
 
@@ -80,7 +72,7 @@ namespace VoiceToKeys.VMs {
             ScreenCollection.Add(new ScreenDashboardVM());
             ScreenCollection.Add(new ScreenGameVM());
 
-            AddLogger(ioc.Get<Logger>());
+            AddLogger(FactoryManager.Get<Logger>());
         }
 
         public CollectionView LogCollectionView {
@@ -104,7 +96,7 @@ namespace VoiceToKeys.VMs {
                 return selectedTab;
             }
             set {
-                if (Set(ref selectedTab, value)) {
+                if (IfPropertyChanged(ref selectedTab, value)) {
                 }
             }
         }
@@ -122,9 +114,7 @@ namespace VoiceToKeys.VMs {
             writeCollection.Add(customTextWriter);
         }
 
-        public override void Cleanup() {
-            base.Cleanup();
-
+        public void Dispose() {
             customTextWriter.Callback -= customTextWriter_Callback;
         }
     }

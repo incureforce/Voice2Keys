@@ -18,7 +18,7 @@ function cycleNextHostile(command)
 end
 
 function cycleNextSubsystem(command)
-	triggerKey(command, virtualKey.KEY_J);
+	triggerKey(command, virtualKey.KEY_Z);
 end
 
 function setSpeedOff(command)
@@ -55,6 +55,10 @@ end
 
 function panelGalaxy(command)
 	triggerKey(command, virtualKey.KEY_M);
+end
+
+function frameShiftDrive(command)
+	triggerKey(command, virtualKey.KEY_J);
 end
 
 function useChaffLauncher(command)
@@ -100,3 +104,4 @@ api:AddCommand("Subsystem", cycleNextCommand, cycleNextSubsystem);
 api:AddCommand("Hardpoints", nil, hardpoints);
 api:AddCommand("Landing Gear", nil, landingGear);
 api:AddCommand("Deploy Heat Sink", nil, deployHeatSink);
+api:AddCommand("Frame Shift Drive", nil, frameShiftDrive);

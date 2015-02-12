@@ -1,12 +1,7 @@
-﻿using GalaSoft.MvvmLight;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using Utils;
 
 namespace VoiceToKeys.VMs {
-    class ScreenVM : ViewModelBase {
+    class ScreenVM : UIModelBase {
         protected ScreenVM(string name) {
             Name = name;
         }

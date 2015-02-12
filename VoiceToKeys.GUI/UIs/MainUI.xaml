@@ -1,0 +1,43 @@
+﻿<m:MetroWindow 
+    x:Class="VoiceToKeys.UIs.MainUI"
+    
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:m="http://metro.mahapps.com/winfx/xaml/controls"
+    
+    xmlns:vms="clr-namespace:VoiceToKeys.VMs"
+    xmlns:uis="clr-namespace:VoiceToKeys.UIs"
+    
+    Title="MainUI" Height="300" Width="300" DataContext="{Binding MainVM, Source={StaticResource Locator}}">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="001*" />
+            <RowDefinition Height="0200" />
+        </Grid.RowDefinitions>
+        <GroupBox Grid.Row="0" Header="{Binding SelectedTab.Name}" >
+            <TabControl ItemsSource="{Binding ScreenCollection}" SelectedItem="{Binding SelectedTab}" TabStripPlacement="Top">
+                <TabControl.Resources>
+                    <DataTemplate DataType="{x:Type vms:ScreenDashboardVM}">
+                        <uis:DashboardUI />
+                    </DataTemplate>
+                    <DataTemplate DataType="{x:Type vms:ScreenGameVM}">
+                        <uis:GameUI />
+                    </DataTemplate>
+                </TabControl.Resources>
+                <TabControl.ItemTemplate>
+                    <DataTemplate DataType="{x:Type vms:ScreenVM}">
+                        <TextBlock Text="{Binding Name}" />
+                    </DataTemplate> 
+                </TabControl.ItemTemplate>
+            </TabControl>
+        </GroupBox>
+        <GroupBox Grid.Row="1" Header="Log">
+            <DataGrid ItemsSource="{Binding LogCollectionView}" IsReadOnly="True" HeadersVisibility="None" AutoGenerateColumns="False" Margin="5" Padding="5" >
+                <DataGrid.Columns>
+                    <DataGridTextColumn Binding="{Binding DateTime}" />
+                    <DataGridTextColumn Binding="{Binding Message}" Width="1*" />
+                </DataGrid.Columns>
+            </DataGrid>
+        </GroupBox>
+    </Grid>
+</m:MetroWindow>

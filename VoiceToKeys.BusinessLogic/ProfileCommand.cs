@@ -2,8 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using Utils;
 
 namespace VoiceToKeys.BusinessLogic {
     static public class GameCommandEnumerable {
@@ -24,11 +23,13 @@ namespace VoiceToKeys.BusinessLogic {
             collection.Add(this);
         }
 
+        [PrettyObject]
         public ProfileCommand Parent {
             get;
             internal set;
         }
 
+        [PrettyObject]
         public string Text {
             get;
             internal set;
@@ -39,11 +40,13 @@ namespace VoiceToKeys.BusinessLogic {
             internal set;
         }
 
+        [PrettyObject]
         public Func<object, LuaResult> FunctionHandler {
             get;
             internal set;
         }
 
+        [PrettyObject]
         public IEnumerable<ProfileCommand> Commands {
             get {
                 return collection.CommandsBy(this);
@@ -57,7 +60,7 @@ namespace VoiceToKeys.BusinessLogic {
         }
 
         public override string ToString() {
-            return string.Format("{{{0} Text: '{1}', Full: '{2}', Collection: {3}}}", GetType().Name, Text, Full, Commands);
+            return this.ToPrettyString();
         }
     }
 }

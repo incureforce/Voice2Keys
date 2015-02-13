@@ -4,22 +4,28 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.IO;
 using System.Linq;
+using VoiceToKeys.Misc;
 
 namespace VoiceToKeys.BusinessLogic {
     public class ProfileLibrary : IDisposable {
         static readonly DirectoryInfo DefaultDirectory = new DirectoryInfo("Profiles");
 
-        public ProfileLibrary()
-            : this(DefaultDirectory) {
+        public ProfileLibrary(Logger logger)
+            : this(DefaultDirectory, logger) {
         }
 
-        public ProfileLibrary(DirectoryInfo directory) {
+        public ProfileLibrary(DirectoryInfo directory, Logger logger) {
             if (directory == null) {
                 throw new ArgumentNullException("directory");
             }
 
+            if (logger == null) {
+                throw new ArgumentNullException("logger");
+            }
+
             Collection = new ObservableCollection<Profile>();
             Directory = directory;
+            Logger = logger;
             Lua = new Lua();
         }
 
@@ -29,6 +35,11 @@ namespace VoiceToKeys.BusinessLogic {
         }
 
         public DirectoryInfo Directory {
+            get;
+            private set;
+        }
+
+        public Logger Logger {
             get;
             private set;
         }

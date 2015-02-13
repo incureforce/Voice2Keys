@@ -20,12 +20,6 @@ namespace VoiceToKeys.BusinessLogic {
         }
 
         public Profile(ProfileLibrary profileLibrary, DirectoryInfo directory) {
-            var logger = new Logger(this);
-            var loggerModules = logger.Modules;
-            {
-                loggerModules.Add(Logger.CurrentDateTimeModule);
-            }
-
             if (directory.Exists == false) {
                 directory.Create();
             }
@@ -34,7 +28,7 @@ namespace VoiceToKeys.BusinessLogic {
             CommandCollection = new ObservableCollection<ProfileCommand>();
             Directory = directory;
             Library = profileLibrary;
-            Logger = logger;
+            Logger = profileLibrary.Logger;
             File = new FileInfo(directory.FullName + "/Init.lua");
 
             // Cleanup set

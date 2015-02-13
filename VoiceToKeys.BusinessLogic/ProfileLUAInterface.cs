@@ -2,14 +2,11 @@
 using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Linq;
-using System.Text;
 using System.Threading;
-using System.Threading.Tasks;
 using VoiceToKeys.Misc;
 
 namespace VoiceToKeys.BusinessLogic {
-    public class GameLUAInterface {
+    public class ProfileLUAInterface {
         class API {
             private static void SendInput(VirtualKey virtualKey, KeyboardInputEventFlags flags) {
                 var inputs = new Input[] {
@@ -32,11 +29,11 @@ namespace VoiceToKeys.BusinessLogic {
                 set;
             }
 
-            internal ICollection<string> GameProcessNameCollection {
+            internal ICollection<string> ProfileProcessNameCollection {
                 get;
                 set;
             }
-            internal ICollection<GameCommand> GameCommandCollection {
+            internal ICollection<ProfileCommand> ProfileCommandCollection {
                 get;
                 set;
             }
@@ -46,7 +43,7 @@ namespace VoiceToKeys.BusinessLogic {
             }
 
             public void AddProcessName(string processName) {
-                GameProcessNameCollection.Add(processName);
+                ProfileProcessNameCollection.Add(processName);
             }
 
             public void KeyDown(VirtualKey virtualKey) {
@@ -61,13 +58,13 @@ namespace VoiceToKeys.BusinessLogic {
                 Thread.Sleep(milliseconds);
             }
 
-            public GameCommand AddCommand(string commandText, GameCommand commandParent, Func<object, LuaResult> commandFunctionHandler) {
+            public ProfileCommand AddCommand(string commandText, ProfileCommand commandParent, Func<object, LuaResult> commandFunctionHandler) {
                 var commandFull = commandText;
                 if (commandParent != null) {
                     commandFull = string.Concat(commandParent.Full, " ", commandText);
                 }
 
-                return new GameCommand(GameCommandCollection) {
+                return new ProfileCommand(ProfileCommandCollection) {
                     Text = commandText,
                     Full = commandFull,
                     Parent = commandParent,
@@ -87,19 +84,19 @@ namespace VoiceToKeys.BusinessLogic {
         API api;
         LuaGlobal apiEnvironment;
 
-        public GameLUAInterface(Lua lua, Game game) {
+        public ProfileLUAInterface(Lua lua, Profile profile) {
             Lua = lua;
-            Game = game;
+            Profile = profile;
 
             apiEnvironment = new LuaGlobal(lua);
             api = new API() {
-                Logger = game.Logger,
-                GameCommandCollection = game.CommandCollection,
-                GameProcessNameCollection = game.ProcessNameCollection,
+                Logger = profile.Logger,
+                ProfileCommandCollection = profile.CommandCollection,
+                ProfileProcessNameCollection = profile.ProcessNameCollection,
             };
         }
 
-        public Game Game {
+        public Profile Profile {
             get;
             private set;
         }
@@ -119,7 +116,7 @@ namespace VoiceToKeys.BusinessLogic {
             apiEnvironment.SetMemberValue("api", api);
             apiEnvironment.SetMemberValue("virtualKey", EnumTable(typeof(VirtualKey)));
 
-            LuaChunk = Lua.CompileChunk(streamReader, Game.Name, null);
+            LuaChunk = Lua.CompileChunk(streamReader, Profile.Name, null);
 
             apiEnvironment.DoChunk(LuaChunk);
         }

@@ -4,28 +4,26 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.IO;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace VoiceToKeys.BusinessLogic {
-    public class GameLibrary : IDisposable {
+    public class ProfileLibrary : IDisposable {
         static readonly DirectoryInfo DefaultDirectory = new DirectoryInfo("Profiles");
 
-        public GameLibrary()
+        public ProfileLibrary()
             : this(DefaultDirectory) {
         }
 
-        public GameLibrary(DirectoryInfo directory) {
+        public ProfileLibrary(DirectoryInfo directory) {
             if (directory == null) {
                 throw new ArgumentNullException("directory");
             }
 
-            Collection = new ObservableCollection<Game>();
+            Collection = new ObservableCollection<Profile>();
             Directory = directory;
             Lua = new Lua();
         }
 
-        public ICollection<Game> Collection {
+        public ICollection<Profile> Collection {
             get;
             private set;
         }
@@ -47,12 +45,12 @@ namespace VoiceToKeys.BusinessLogic {
                 select directory;
 
             foreach (var directory in directories) {
-                var game = Game.TryNew(this, directory);
-                if (game == null) {
+                var profile = Profile.TryNew(this, directory);
+                if (profile == null) {
                     return;
                 }
 
-                Collection.Add(game);
+                Collection.Add(profile);
             }
         }
 

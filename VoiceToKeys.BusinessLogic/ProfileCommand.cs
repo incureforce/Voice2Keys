@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace VoiceToKeys.BusinessLogic {
     static public class GameCommandEnumerable {
-        static public IEnumerable<GameCommand> CommandsBy(this IEnumerable<GameCommand> commandCollection, GameCommand commandParent) {
+        static public IEnumerable<ProfileCommand> CommandsBy(this IEnumerable<ProfileCommand> commandCollection, ProfileCommand commandParent) {
             var commands =
                 from command in commandCollection
                 where command.Parent == commandParent
@@ -16,15 +16,15 @@ namespace VoiceToKeys.BusinessLogic {
         }
     }
 
-    public class GameCommand {
-        ICollection<GameCommand> collection;
+    public class ProfileCommand {
+        ICollection<ProfileCommand> collection;
 
-        internal GameCommand(ICollection<GameCommand> commandCollection) {
+        internal ProfileCommand(ICollection<ProfileCommand> commandCollection) {
             collection = commandCollection;
             collection.Add(this);
         }
 
-        public GameCommand Parent {
+        public ProfileCommand Parent {
             get;
             internal set;
         }
@@ -44,7 +44,7 @@ namespace VoiceToKeys.BusinessLogic {
             internal set;
         }
 
-        public IEnumerable<GameCommand> Commands {
+        public IEnumerable<ProfileCommand> Commands {
             get {
                 return collection.CommandsBy(this);
             }

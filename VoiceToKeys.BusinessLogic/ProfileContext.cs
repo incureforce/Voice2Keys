@@ -3,31 +3,31 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using System.Speech.Recognition;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace VoiceToKeys.BusinessLogic {
-    public class GameContext : IDisposable {
+    public class ProfileContext : IDisposable {
         static IEnumerable<IntPtr> SafeGetProcessesBy(IEnumerable<string> processNames) {
-            var gameProcessMainWindowHandleList = new List<IntPtr>();
+            var profileProcessMainWindowHandleList = new List<IntPtr>();
 
             foreach (var process in Process.GetProcesses()) {
                 try {
                     var processName = process.ProcessName;
                     var processMainWindowHandle = process.MainWindowHandle;
                     if (processNames.Contains(processName)) {
-                        gameProcessMainWindowHandleList.Add(processMainWindowHandle);
+                        profileProcessMainWindowHandleList.Add(processMainWindowHandle);
                     }
-                } catch {
+                }
+                catch {
                 }
             }
 
-            return gameProcessMainWindowHandleList;
+            return profileProcessMainWindowHandleList;
         }
 
-        public GameContext(Game game) {
-            Game = game;
-            GameCommands = game.CommandCollection;
+        public ProfileContext(Profile profile) {
+            Profile = profile;
+            profileCommands = profile.CommandCollection;
         }
 
         protected SpeechRecognitionEngine SpeechRecognitionEngine {
@@ -35,27 +35,27 @@ namespace VoiceToKeys.BusinessLogic {
             private set;
         }
 
-        protected Game Game {
+        protected Profile Profile {
             get;
             private set;
         }
 
-        public IEnumerable<GameCommand> GameCommands {
+        public IEnumerable<ProfileCommand> profileCommands {
             get;
             private set;
         }
 
         private bool IsCurrentInputProcess() {
-            var gameProcessNameCollection = Game.ProcessNameCollection;
+            var profileProcessNameCollection = Profile.ProcessNameCollection;
 
-            if (gameProcessNameCollection.Count == 0) {
+            if (profileProcessNameCollection.Count == 0) {
                 return true;
             }
 
-            var gameProcessMainWindow = Win32.GetForegroundWindow();
-            var gameProcessMainWindowHandles = SafeGetProcessesBy(gameProcessNameCollection);
+            var profileProcessMainWindow = Win32.GetForegroundWindow();
+            var profileProcessMainWindowHandles = SafeGetProcessesBy(profileProcessNameCollection);
 
-            return gameProcessMainWindowHandles.Contains(gameProcessMainWindow);
+            return profileProcessMainWindowHandles.Contains(profileProcessMainWindow);
         }
 
         public async Task LaunchAsync() {
@@ -66,7 +66,7 @@ namespace VoiceToKeys.BusinessLogic {
             SpeechRecognitionEngine = new SpeechRecognitionEngine();
 
             await Task.Run(() => {
-                SpeechRecognitionEngine.LoadGrammar(Game.NewGrammar());
+                SpeechRecognitionEngine.LoadGrammar(Profile.NewGrammar());
                 SpeechRecognitionEngine.SetInputToDefaultAudioDevice();
             });
 
@@ -93,8 +93,8 @@ namespace VoiceToKeys.BusinessLogic {
             } while (SpeechRecognitionEngine != null);
         }
 
-        private GameCommand CommandBy(string commandFull) {
-            return GameCommands.SingleOrDefault(p => p.Full == commandFull);
+        private ProfileCommand CommandBy(string commandFull) {
+            return profileCommands.SingleOrDefault(p => p.Full == commandFull);
         }
 
         public void Dispose() {

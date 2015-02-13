@@ -18,7 +18,7 @@ namespace VoiceToKeys.Development {
     class Program {
         static void Main(string[] args) {
             using (var lua = new Lua()) {
-                var gameLibrary = new GameLibrary();
+                var gameLibrary = new ProfileLibrary();
                 var gameLibraryCollection = gameLibrary.Collection;
 
                 gameLibrary.Search();
@@ -30,7 +30,7 @@ namespace VoiceToKeys.Development {
                     {
                         gameLogger.WriterCollection.Add(Console.Out);
                     }
-                    var gameContext = new GameContext(game);
+                    var gameContext = new ProfileContext(game);
                     {
                         game.Load();
                         gameContext.LaunchAsync();

@@ -1,28 +1,25 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.IO;
 using System.Linq;
 using System.Speech.Recognition;
-using System.Text;
-using System.Threading.Tasks;
 using VoiceToKeys.Misc;
 
 namespace VoiceToKeys.BusinessLogic {
-    public class Game {
-        static public Game TryNew(GameLibrary gameLibrary, DirectoryInfo gameDirectory) {
+    public class Profile {
+        static public Profile TryNew(ProfileLibrary profileLibrary, DirectoryInfo profileDirectory) {
 #if RELEASE
             try {
-                return new Game(gameLibrary, gameDirectory);
+                return new profile(profileLibrary, profileDirectory);
             } catch (Exception ex) {
                 return null;
             }
 #else
-            return new Game(gameLibrary, gameDirectory);
+            return new Profile(profileLibrary, profileDirectory);
 #endif
         }
 
-        public Game(GameLibrary gameLibrary, DirectoryInfo directory) {
+        public Profile(ProfileLibrary profileLibrary, DirectoryInfo directory) {
             var logger = new Logger(this);
             var loggerModules = logger.Modules;
             {
@@ -34,28 +31,28 @@ namespace VoiceToKeys.BusinessLogic {
             }
 
             ProcessNameCollection = new ObservableCollection<string>();
-            CommandCollection = new ObservableCollection<GameCommand>();
+            CommandCollection = new ObservableCollection<ProfileCommand>();
             Directory = directory;
-            Library = gameLibrary;
+            Library = profileLibrary;
             Logger = logger;
             File = new FileInfo(directory.FullName + "/Init.lua");
 
             // Cleanup set
 
-            LUAInterface = new GameLUAInterface(gameLibrary.Lua, this);
+            LUAInterface = new ProfileLUAInterface(profileLibrary.Lua, this);
         }
 
-        internal GameLUAInterface LUAInterface {
+        internal ProfileLUAInterface LUAInterface {
             get;
             private set;
         }
 
-        public ICollection<GameCommand> CommandCollection {
+        public ICollection<ProfileCommand> CommandCollection {
             get;
             private set;
         }
 
-        public GameLibrary Library {
+        public ProfileLibrary Library {
             get;
             private set;
         }
@@ -93,17 +90,17 @@ namespace VoiceToKeys.BusinessLogic {
             return new Grammar(grammarBuilder);
         }
 
-        private Choices ChoicesBy(IEnumerable<GameCommand> commands) {
+        private Choices ChoicesBy(IEnumerable<ProfileCommand> commands) {
             var grammarBuilders =
                 from command in commands
                 select GrammarBuilderBy(command);
             return new Choices(grammarBuilders.ToArray());
         }
 
-        private GrammarBuilder GrammarBuilderBy(GameCommand command) {
+        private GrammarBuilder GrammarBuilderBy(ProfileCommand command) {
             var grammarBuilder = new GrammarBuilder(command.Text);
             var grammarBuilderChoices = ChoicesBy(command.Commands);
-            
+
             if (command.FunctionHandler != null) {
                 grammarBuilderChoices.Add(new GrammarBuilder());
             }

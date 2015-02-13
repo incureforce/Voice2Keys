@@ -1,7 +1,7 @@
 ﻿using System.Windows;
 using Utils;
 using VoiceToKeys.Misc;
-using VoiceToKeys.VMs;
+using VoiceToKeys.UIModels;
 
 namespace VoiceToKeys {
     /// <summary>
@@ -21,11 +21,12 @@ namespace VoiceToKeys {
                 loggerModules.Add(Logger.CurrentMethodModule);
                 loggerModules.Add(Logger.CurrentDateTimeModule);
             }
+
             factoryManager.Set(() => logger);
 
-            var mainVM = new MainVM();
+            var mainUIModel = new MainUIModel();
 
-            factoryManager.Set(() => mainVM);
+            factoryManager.Set(() => mainUIModel);
         }
     }
 }

@@ -60,38 +60,18 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Compile Include="UIs\ScreenDashboardUI.xaml.cs">
-      <DependentUpon>ScreenDashboardUI.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="UIs\ScreenGameUI.xaml.cs">
-      <DependentUpon>ScreenGameUI.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="UIs\MainUI.xaml.cs">
-      <DependentUpon>MainUI.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="VMs\ScreenDashboardVM.cs" />
-    <Compile Include="VMs\ScreenGameVM.cs" />
-    <Compile Include="VMs\MainVM.cs" />
+    <Compile Include="Converters\StringToImageConverter.cs" />
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="VMs\ScreenVM.cs" />
-    <Page Include="UIs\ScreenDashboardUI.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="UIs\ScreenGameUI.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="UIs\MainUI.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
+    <Compile Include="Models\IconModel.cs" />
+    <Compile Include="UIModels\MainUIModel.cs" />
+    <Compile Include="UIs\Frames\MainUI.xaml.cs">
+      <DependentUpon>MainUI.xaml</DependentUpon>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Misc\Locator.cs" />
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -134,6 +114,12 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Profiles\Elite Dangerous\Scripts\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Page Include="UIs\Frames\MainUI.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>

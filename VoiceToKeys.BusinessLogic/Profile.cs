@@ -1,4 +1,8 @@
-﻿using System.Collections.Generic;
+﻿/* Copyright (C) 2015 Stefan Atzlesberger
+ * See README.md for further informations
+ */
+
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.IO;
 using System.Linq;

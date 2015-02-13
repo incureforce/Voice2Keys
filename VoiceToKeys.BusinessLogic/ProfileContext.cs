@@ -1,4 +1,8 @@
-﻿using System;
+﻿/* Copyright (C) 2015 Stefan Atzlesberger
+ * See README.md for further informations
+ */
+
+using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;

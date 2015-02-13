@@ -1,4 +1,8 @@
-﻿using Neo.IronLua;
+﻿/* Copyright (C) 2015 Stefan Atzlesberger
+ * See README.md for further informations
+ */
+
+using Neo.IronLua;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;

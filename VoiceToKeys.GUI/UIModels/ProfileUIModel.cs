@@ -1,4 +1,8 @@
-﻿using Utils;
+﻿/* Copyright (C) 2015 Stefan Atzlesberger
+ * See README.md for further informations
+ */
+
+using Utils;
 using VoiceToKeys.BusinessLogic;
 
 namespace VoiceToKeys.UIModels {

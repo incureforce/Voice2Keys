@@ -1,24 +1,19 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.Diagnostics;
-using System.IO;
-using System.Linq;
-using System.Runtime.InteropServices;
-using System.Speech.Recognition;
-using System.Text;
-using System.Threading;
-using System.Threading.Tasks;
-using System.Xml.Linq;
-using System.Xml.Serialization;
+﻿/* Copyright (C) 2015 Stefan Atzlesberger
+ * See README.md for further informations
+ */
+
 using Neo.IronLua;
+using System;
+using System.Linq;
 using VoiceToKeys.BusinessLogic;
+using VoiceToKeys.Misc;
 
 namespace VoiceToKeys.Development {
     class Program {
         static void Main(string[] args) {
             using (var lua = new Lua()) {
-                var gameLibrary = new ProfileLibrary();
+                var gameLogger = new Logger(null);
+                var gameLibrary = new ProfileLibrary(gameLogger);
                 var gameLibraryCollection = gameLibrary.Collection;
 
                 gameLibrary.Search();
@@ -26,7 +21,6 @@ namespace VoiceToKeys.Development {
                 var game = gameLibraryCollection.FirstOrDefault();
 
                 if (game != null) {
-                    var gameLogger = game.Logger;
                     {
                         gameLogger.WriterCollection.Add(Console.Out);
                     }
@@ -38,7 +32,8 @@ namespace VoiceToKeys.Development {
                     while (!IsKey(ConsoleKey.Escape)) ;
 
                     gameContext.Dispose();
-                } else {
+                }
+                else {
                     Console.WriteLine("No Game found");
 
                     while (!IsKey(ConsoleKey.Escape)) ;
@@ -51,7 +46,7 @@ namespace VoiceToKeys.Development {
             return consoleKey.Equals(consoleKeyInfo.Key);
         }
 
-        
+
         /*
         
         */

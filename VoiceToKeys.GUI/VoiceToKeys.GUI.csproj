@@ -65,7 +65,8 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="Models\IconModel.cs" />
+    <Compile Include="Models\LogMessageCollector.cs" />
+    <Compile Include="UIModels\ProfileUIModel.cs" />
     <Compile Include="UIModels\MainUIModel.cs" />
     <Compile Include="UIs\Frames\MainUI.xaml.cs">
       <DependentUpon>MainUI.xaml</DependentUpon>

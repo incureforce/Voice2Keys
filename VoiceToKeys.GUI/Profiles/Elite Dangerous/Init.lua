@@ -57,7 +57,7 @@ function panelGalaxy(command)
 	triggerKey(command, virtualKey.KEY_M);
 end
 
-function frameShiftDrive(command)
+function useFSD(command)
 	triggerKey(command, virtualKey.KEY_J);
 end
 
@@ -77,6 +77,7 @@ end
 
 local useCommand = api:AddCommand("Use");
 
+api:AddCommand("FSD", useCommand, useFSD);
 api:AddCommand("Shield Cell", useCommand, useShieldCell);
 api:AddCommand("Chaff Launcher", useCommand, useChaffLauncher);
 
@@ -104,4 +105,3 @@ api:AddCommand("Subsystem", cycleNextCommand, cycleNextSubsystem);
 api:AddCommand("Hardpoints", nil, hardpoints);
 api:AddCommand("Landing Gear", nil, landingGear);
 api:AddCommand("Deploy Heat Sink", nil, deployHeatSink);
-api:AddCommand("Frame Shift Drive", nil, frameShiftDrive);

@@ -1,0 +1,49 @@
+﻿<metro:MetroWindow
+    x:Class="VoiceToKeys.UIs.Frames.MainUI"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:uims="clr-namespace:VoiceToKeys.UIModels"
+    xmlns:metro="http://metro.mahapps.com/winfx/xaml/controls"
+    Title="MainUI" Height="300" Width="300" DataContext="{x:Static uims:MainUIModel.Instance}">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"></RowDefinition>
+            <RowDefinition Height="001*"></RowDefinition>
+            <RowDefinition Height="001*"></RowDefinition>
+        </Grid.RowDefinitions>
+        
+        <StackPanel Grid.Row="0" Orientation="Horizontal">
+            <StackPanel.Resources>
+                <Style BasedOn="{StaticResource MetroCircleButtonStyle}" TargetType="{x:Type Button}">
+                    <Setter Property="Width" Value="48" />
+                    <Setter Property="Height" Value="48" />
+                    <Setter Property="Padding" Value="08" />
+                    <Setter Property="BorderThickness" Value="0" />
+                </Style>
+            </StackPanel.Resources>
+            <Button Command="{Binding LoadCommand}">
+                <Button.Content>
+                    <Image Source="{Binding Converter={StaticResource StringToImageConverter}, ConverterParameter=dll-icon:///$system/shell32.dll/238}" />
+                </Button.Content>
+            </Button>
+            <Button Command="{Binding StopCommand}">
+                <Button.Content>
+                    <Image Source="{Binding Converter={StaticResource StringToImageConverter}, ConverterParameter=dll-icon:///$system/shell32.dll/131}" />
+                </Button.Content>
+            </Button>
+            <Button Command="{Binding PlayCommand}">
+                <Button.Content>
+                    <Image Source="{Binding Converter={StaticResource StringToImageConverter}, ConverterParameter=dll-icon:///$system/shell32.dll/137}" />
+                </Button.Content>
+            </Button>
+        </StackPanel>
+        <ListView Grid.Row="1" ItemsSource="{Binding ProfileUIModelCollection}" SelectedItem="{Binding ProfileUIModel}">
+            <ListView.Resources>
+                <DataTemplate DataType="{x:Type uims:ProfileUIModel}">
+                    <TextBlock Text="{Binding Name}" Padding="8" />
+                </DataTemplate>
+            </ListView.Resources>
+        </ListView>
+        <ListView Grid.Row="2" ItemsSource="{Binding LogMessageCollection}" />
+    </Grid>
+</metro:MetroWindow>

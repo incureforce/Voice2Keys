@@ -43,17 +43,23 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Game.cs" />
-    <Compile Include="GameCommand.cs" />
-    <Compile Include="GameContext.cs" />
-    <Compile Include="GameLibrary.cs" />
-    <Compile Include="GameLUAInterface.cs" />
+    <Compile Include="Profile.cs" />
+    <Compile Include="ProfileCommand.cs" />
+    <Compile Include="ProfileContext.cs" />
+    <Compile Include="ProfileLibrary.cs" />
+    <Compile Include="ProfileLUAInterface.cs" />
     <Compile Include="Logger.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Win32.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\Utils Library\Utils Library.csproj">
+      <Project>{35e284fc-d8b1-44f6-a229-8e7d811627b7}</Project>
+      <Name>Utils Library</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
